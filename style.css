@@ -36,6 +36,14 @@ h1 {
   font-size: 0.9rem;
 }
 
+.lede {
+  margin: 0.85rem auto 0;
+  max-width: 44rem;
+  color: #d7ddff;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -47,6 +55,13 @@ h1 {
   border-radius: 14px;
   border: 1px solid rgba(120, 148, 255, 0.4);
   padding: 1.1rem 1.2rem 1.3rem;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(157, 181, 255, 0.7);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
 }
 
 .card h2 {
@@ -60,6 +75,13 @@ h1 {
   margin-bottom: 0.9rem;
   font-size: 0.9rem;
   color: #c6ccff;
+}
+
+.card-meta {
+  color: #92a2ff;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .btn {
@@ -76,6 +98,11 @@ h1 {
 
 .btn:hover {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #d8e3ff;
+  outline-offset: 3px;
 }
 
 footer {
