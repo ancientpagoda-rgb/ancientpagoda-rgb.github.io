@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Timeline Language & Ancestry Map (1500–2025)</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="./plotly-2.35.2.min.js"></script>
+  </head>
+  <body class="map-only">
+    <header>
+      <h1>
+        World Timeline Diversity Simulation
+        <span class="badge">Historically Anchored Prototype</span>
+      </h1>
+      <p class="notice">
+        ⚠️ Broad macroregional estimate only. Population totals are historical anchors, and language/ancestry-proxy balances are hand-curated regional shares around major inflection points; this is not DNA data or exact census truth.
+      </p>
+      <p class="sub">4D framing: latitude/longitude + year + intensity dimension (color), constrained to 1500–2025.</p>
+    </header>
+
+    <main>
+      <section class="controls" aria-label="Simulation controls">
+        <div class="control control-year">
+          <label for="yearSlider">Year A (animated)</label>
+          <input
+            id="yearSlider"
+            type="range"
+            min="1500"
+            max="2025"
+            step="1"
+            value="1500"
+            aria-label="Year A slider"
+          />
+          <div class="year-row">
+            <button id="prevYearBtn" class="ghost" type="button" aria-label="Previous 25-year step">◀</button>
+            <div id="yearValue" class="value" aria-live="polite">1500.0</div>
+            <button id="nextYearBtn" class="ghost" type="button" aria-label="Next 25-year step">▶</button>
+            <button id="playBtn" class="play" type="button" aria-label="Play or pause animation" aria-pressed="false">Play</button>
+          </div>
+        </div>
+
+        <div class="control advanced-control">
+          <label for="speedSelect">Animation speed</label>
+          <select id="speedSelect" aria-label="Animation speed">
+            <option value="2.5">0.5×</option>
+            <option value="5" selected>1×</option>
+            <option value="10">2×</option>
+            <option value="20">4×</option>
+          </select>
+          <label for="loopModeSelect" class="small-label">Loop mode</label>
+          <select id="loopModeSelect" aria-label="Animation loop mode">
+            <option value="wrap" selected>Wrap</option>
+            <option value="bounce">Bounce</option>
+          </select>
+          <label for="playDirectionSelect" class="small-label">Playback direction</label>
+          <select id="playDirectionSelect" aria-label="Playback direction">
+            <option value="forward" selected>Forward</option>
+            <option value="backward">Backward</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label for="dimensionSelect">Color intensity dimension</label>
+          <select id="dimensionSelect" aria-label="Color intensity dimension">
+            <option value="language">Language diversity</option>
+            <option value="ethnic">Ancestry diversity (proxy)</option>
+            <option value="combined">Combined diversity</option>
+          </select>
+        </div>
+
+        <div class="control advanced-control">
+          <label for="sizeModeSelect">Marker sizing mode</label>
+          <select id="sizeModeSelect" aria-label="Marker sizing mode">
+            <option value="combined" selected>Combined diversity</option>
+            <option value="selected">Selected dimension</option>
+          </select>
+
+          <label for="colorRangeModeSelect" class="small-label">Color range mode</label>
+          <select id="colorRangeModeSelect" aria-label="Color range mode">
+            <option value="fixed" selected>Fixed scale</option>
+            <option value="auto">Auto scale (visible regions)</option>
+          </select>
+        </div>
+
+        <div class="control advanced-control">
+          <label for="scenarioSelect">Method</label>
+          <select id="scenarioSelect" aria-label="Historical interpolation method">
+            <option value="historical" selected>Historical anchors</option>
+          </select>
+          <p id="scenarioHint" class="hint"></p>
+        </div>
+
+        <div class="control">
+          <label for="regionSelect">Region</label>
+          <select id="regionSelect" aria-label="Region filter"></select>
+
+          <label for="projectionSelect" class="small-label advanced-field">Map projection</label>
+          <select id="projectionSelect" class="advanced-field" aria-label="Map projection">
+            <option value="natural earth" selected>Natural Earth</option>
+            <option value="equirectangular">Equirectangular</option>
+            <option value="orthographic">Orthographic</option>
+          </select>
+        </div>
+
+        <div class="control advanced-control">
+          <label class="toggle-label" for="compareToggle">Compare two years</label>
+          <div class="toggle-row">
+            <input id="compareToggle" type="checkbox" aria-label="Enable two-year comparison" />
+            <span>Enable interval mode</span>
+          </div>
+
+          <div class="toggle-row">
+            <input id="compareLockToggle" type="checkbox" checked aria-label="Lock Year B to Year A offset" />
+            <span>Lock Year B offset</span>
+          </div>
+
+          <label for="compareOffsetSelect" class="small-label">Offset (Year B − Year A)</label>
+          <select id="compareOffsetSelect" aria-label="Year offset for comparison"></select>
+
+          <label for="compareYearSelect" class="small-label">Year B (manual)</label>
+          <select id="compareYearSelect" aria-label="Year B comparison target"></select>
+
+          <label for="deltaThresholdSelect" class="small-label">Mover threshold (pp)</label>
+          <select id="deltaThresholdSelect" aria-label="Minimum absolute delta threshold">
+            <option value="0" selected>0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1">1.0</option>
+            <option value="1.5">1.5</option>
+            <option value="2">2.0</option>
+          </select>
+
+          <button id="exportCsvBtn" class="ghost" type="button" aria-label="Export visible data as CSV">Export CSV</button>
+        </div>
+
+        <div class="control advanced-control">
+          <label for="stepSizeSelect">Step size (buttons + keyboard)</label>
+          <select id="stepSizeSelect" aria-label="Year step size">
+            <option value="25" selected>25 years</option>
+            <option value="50">50 years</option>
+            <option value="100">100 years</option>
+          </select>
+
+          <div class="toggle-row top-gap">
+            <input id="snapToGridToggle" type="checkbox" checked aria-label="Snap timeline to 25-year grid" />
+            <span>Snap timeline to 25-year grid</span>
+          </div>
+
+          <div class="toggle-row">
+            <input id="reducedMotionToggle" type="checkbox" aria-label="Reduce animation motion" />
+            <span>Reduce motion</span>
+          </div>
+
+          <div class="toggle-row">
+            <input id="highContrastToggle" type="checkbox" aria-label="Enable high contrast theme" />
+            <span>High contrast mode</span>
+          </div>
+
+          <button id="resetViewBtn" class="ghost" type="button" aria-label="Reset simulation controls to defaults">Reset view</button>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Snapshot summary">
+        <div class="chip"><span>Visible regions</span><strong id="statRegions">0</strong></div>
+        <div class="chip"><span>Avg language diversity</span><strong id="statLanguage">0.0</strong></div>
+        <div class="chip"><span>Avg ancestry diversity (proxy)</span><strong id="statEthnic">0.0</strong></div>
+        <div class="chip"><span>Avg combined</span><strong id="statCombined">0.0</strong></div>
+        <div class="chip advanced-chip"><span>Median selected score</span><strong id="statMedian">0.0</strong></div>
+        <div class="chip advanced-chip"><span>Score dispersion (σ)</span><strong id="statStdDev">0.0</strong></div>
+        <div class="chip advanced-chip"><span>Avg interval delta</span><strong id="statCombinedDelta">n/a</strong></div>
+        <div class="chip advanced-chip"><span>Largest interval shift</span><strong id="statMover">—</strong></div>
+      </section>
+
+      <section class="legend" aria-label="Color legend">
+        <div id="legendTitle" class="legend-title">Legend</div>
+        <div id="legendGradient" class="legend-gradient" role="img" aria-label="Color scale"></div>
+        <div class="legend-labels">
+          <span id="legendMin">0</span>
+          <span id="legendMid">50</span>
+          <span id="legendMax">100</span>
+        </div>
+      </section>
+
+      <section class="layout">
+        <div id="map" class="map" role="img" aria-label="World timeline historical language and ancestry map" tabindex="0"></div>
+
+        <aside class="panel">
+          <h2>Region detail</h2>
+          <div id="detailContent" aria-live="polite">
+            <p>Click or hover a marker to inspect simulated composition details.</p>
+          </div>
+
+          <h3 class="advanced-section">Interval analytics</h3>
+          <div id="analyticsContent" class="analytics-content advanced-section" aria-live="polite"></div>
+
+          <h3 class="advanced-section">Top movers chart</h3>
+          <div id="moversChart" class="trend-chart advanced-section" role="img" aria-label="Top gainers and decliners chart"></div>
+
+          <h3 class="advanced-section">Distribution</h3>
+          <div id="distributionChart" class="trend-chart advanced-section" role="img" aria-label="Score distribution chart"></div>
+
+          <h3 class="advanced-section">Visible region table</h3>
+          <div id="regionTable" class="region-table advanced-section" role="table" aria-label="Visible region scores table"></div>
+
+          <h3 class="advanced-section">Trend</h3>
+          <div id="trendChart" class="trend-chart advanced-section" role="img" aria-label="Trend chart"></div>
+
+          <p id="runtimeStatus" class="runtime-status advanced-section" aria-live="polite"></p>
+        </aside>
+      </section>
+
+      <aside id="mapOnlyInspector" class="map-only-inspector" aria-live="polite" hidden>
+        <div class="map-only-inspector-shell">
+          <div class="map-only-inspector-header">
+            <div>
+              <p class="map-only-eyebrow">Map focus</p>
+              <h2 id="mapOnlyInspectorTitle">Region detail</h2>
+            </div>
+            <button id="mapOnlyInspectorClose" class="ghost" type="button" aria-label="Clear pinned region" hidden>
+              Clear
+            </button>
+          </div>
+          <div id="mapOnlyInspectorContent"></div>
+        </div>
+      </aside>
+
+      <section class="map-timeline" aria-label="Timeline slider">
+        <button id="mapPrevYearBtn" class="ghost" type="button" aria-label="Previous 25-year step">◀</button>
+        <button id="mapPlayBtn" class="play" type="button" aria-label="Play or pause animation" aria-pressed="false">Play</button>
+        <button id="mapNextYearBtn" class="ghost" type="button" aria-label="Next 25-year step">▶</button>
+        <input
+          id="mapYearSlider"
+          type="range"
+          min="1500"
+          max="2025"
+          step="1"
+          value="1500"
+          aria-label="Timeline year slider"
+        />
+        <div id="mapYearValue" class="map-year-value" aria-live="polite">1500.0</div>
+      </section>
+    </main>
+
+    <footer>
+      <small>Simple mode enabled: core controls only (year, dimension, region). Broad macroregional proxy model, calibrated around major historical shifts; no future projection beyond 2025.</small>
+    </footer>
+
+    <div id="a11yStatus" class="sr-only" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
