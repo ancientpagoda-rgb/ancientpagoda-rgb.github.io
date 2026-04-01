@@ -491,13 +491,39 @@ const ANCESTRY_PROXY_ANCHORS = {
   ],
 };
 
-const YEARS = Array.from({ length: (2025 - 1500) / 25 + 1 }, (_, i) => 1500 + i * 25);
+const TIMELINE_START = -3000;
+const TIMELINE_END = 2025;
+const YEARS = Array.from({ length: (TIMELINE_END - TIMELINE_START) / 25 + 1 }, (_, i) => TIMELINE_START + i * 25);
 const YEAR_MIN = YEARS[0];
 const YEAR_MAX = YEARS[YEARS.length - 1];
 const YEAR_STEP = 25;
 const YEAR_SPAN = YEAR_MAX - YEAR_MIN;
 
 const ERA_BANDS = [
+  {
+    start: -3000,
+    end: -1201,
+    label: "Bronze Age foundations",
+    note: "Deep-time extension only: broad macroregional proxies stand in for early state formation, long-distance exchange, and prehistoric-to-ancient transitions.",
+  },
+  {
+    start: -1200,
+    end: -500,
+    label: "Iron Age worlds",
+    note: "Still highly schematic: the model should be read as coarse regional continuity before classical-era empires and historically documented ethnolinguistic balances.",
+  },
+  {
+    start: -499,
+    end: 500,
+    label: "Classical and late antique era",
+    note: "Regional labels are still broad abstractions, but written-state history and long-run imperial systems become more legible than in the deep-prehistory segment.",
+  },
+  {
+    start: 501,
+    end: 1499,
+    label: "Medieval and post-classical world",
+    note: "Macroregional balances remain approximate, representing long-run civilizational patterns before the early modern colonial rupture.",
+  },
   {
     start: 1500,
     end: 1649,
@@ -1374,6 +1400,20 @@ function dimensionLabel(dimension) {
   return "Combined";
 }
 
+function formatYearLabel(year, { includeCE = false } = {}) {
+  if (year < 0) return `${Math.abs(Math.round(year))} BCE`;
+  if (year === 0) return "0";
+  return includeCE ? `${Math.round(year)} CE` : `${Math.round(year)}`;
+}
+
+function formatYearValue(year) {
+  return formatYearLabel(year);
+}
+
+function formatYearRange(startYear, endYear) {
+  return `${formatYearLabel(startYear)} → ${formatYearLabel(endYear)}`;
+}
+
 function snapshotForRegion(region, year, scenarioKey) {
   const languageComp = simulateComposition(region.baseLanguages, region.id, year, "language", scenarioKey);
   const ethnicComp = simulateComposition(region.baseEthnic, region.id, year, "ethnic", scenarioKey);
@@ -1522,7 +1562,7 @@ function buildMapOnlyTrendSvg(regionId) {
   ];
 
   return `
-    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Regional diversity trend from ${YEAR_MIN} to ${YEAR_MAX}">
+    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Regional diversity trend from ${formatYearLabel(YEAR_MIN)} to ${formatYearLabel(YEAR_MAX)}">
       <rect x="0" y="0" width="${width}" height="${height}" rx="12" fill="rgba(15, 23, 51, 0.18)"></rect>
       ${[25, 50, 75]
         .map(
@@ -1548,8 +1588,8 @@ function buildMapOnlyTrendSvg(regionId) {
       ${paths
         .map((path) => `<circle cx="${currentX.toFixed(1)}" cy="${yForValue(current[path.key]).toFixed(1)}" r="${state.dimension === path.key.replace("Score", "") ? 3.8 : 2.6}" fill="${path.color}" stroke="#f8fafc" stroke-width="0.9"></circle>`)
         .join("")}
-      <text x="${pad}" y="${height - 2}" fill="rgba(203,216,251,0.76)" font-size="10">${YEAR_MIN}</text>
-      <text x="${width - pad}" y="${height - 2}" text-anchor="end" fill="rgba(203,216,251,0.76)" font-size="10">${YEAR_MAX}</text>
+      <text x="${pad}" y="${height - 2}" fill="rgba(203,216,251,0.76)" font-size="10">${formatYearLabel(YEAR_MIN)}</text>
+      <text x="${width - pad}" y="${height - 2}" text-anchor="end" fill="rgba(203,216,251,0.76)" font-size="10">${formatYearLabel(YEAR_MAX)}</text>
     </svg>
   `;
 }
@@ -1594,7 +1634,7 @@ function renderMapOnlyInspector(snapshot) {
   const era = getEraInfo(snapshot.year);
   const compareSnapshot = state.compareEnabled ? getSnapshotByRegionId(snapshot.id, state.compareSnapshots) : null;
   const compareText = compareSnapshot
-    ? `<small>${dimensionLabel(state.dimension)} Δ ${formatDelta(computeIntervalDelta(snapshot, compareSnapshot, state.dimension))} pp to ${compareSnapshot.year.toFixed(0)}</small>`
+    ? `<small>${dimensionLabel(state.dimension)} Δ ${formatDelta(computeIntervalDelta(snapshot, compareSnapshot, state.dimension))} pp to ${formatYearLabel(compareSnapshot.year)}</small>`
     : `<small>${formatDelta(avgDelta)} vs visible average · rank #${Math.max(rank, 1)}/${Math.max(ordered.length, 1)} in ${dimensionLabel(state.dimension).toLowerCase()}</small>`;
 
   title.textContent = snapshot.region;
@@ -1603,7 +1643,7 @@ function renderMapOnlyInspector(snapshot) {
   content.innerHTML = `
     <p class="map-only-status ${isPinned ? "is-pinned" : ""}">
       <span class="map-only-status-dot" aria-hidden="true"></span>
-      ${isPinned ? "Pinned focus card" : "Hover preview"} · year ${snapshot.year.toFixed(0)} · ${escapeHtml(era.label)}
+      ${isPinned ? "Pinned focus card" : "Hover preview"} · year ${formatYearLabel(snapshot.year)} · ${escapeHtml(era.label)}
     </p>
     <p class="map-only-summary">
       ${dimensionLabel(state.dimension)} diversity sits at <strong>${dimensionScore.toFixed(1)}</strong>. Dominant language is <strong>${escapeHtml(topLanguage.name)}</strong> (${topLanguage.pct.toFixed(1)}%), while the strongest ancestry-proxy signal is <strong>${escapeHtml(topEthnic.name)}</strong> (${topEthnic.pct.toFixed(1)}%).
@@ -1637,7 +1677,7 @@ function renderMapOnlyInspector(snapshot) {
     <section class="map-only-trend">
       <div class="map-only-trend-head">
         <strong>Historical diversity trace</strong>
-        <span>${YEAR_MIN} → ${YEAR_MAX}</span>
+        <span>${formatYearRange(YEAR_MIN, YEAR_MAX)}</span>
       </div>
       ${buildMapOnlyTrendSvg(snapshot.id)}
       <div class="map-only-trend-legend">
@@ -1824,7 +1864,7 @@ function hoverText(snapshotA) {
   const era = getEraInfo(snapshotA.year);
   const rows = [
     `<b>${snapshotA.region}</b>`,
-    `Year A: ${snapshotA.year.toFixed(1)}`,
+    `Year A: ${formatYearValue(snapshotA.year)}`,
     `Historical era: ${era.label}`,
     `Dominant ancestry group (proxy): ${dominant.name} (${dominant.pct.toFixed(1)}%)`,
     `Language diversity: ${snapshotA.languageScore.toFixed(1)}`,
@@ -1855,7 +1895,7 @@ function renderDetails(snapshotA) {
 
   if (!state.compareEnabled) {
     detail.innerHTML = `
-      <p><strong>${snapshotA.region}</strong> — Year ${snapshotA.year.toFixed(1)}</p>
+      <p><strong>${snapshotA.region}</strong> — Year ${formatYearValue(snapshotA.year)}</p>
       <p><strong>Historical era</strong>: ${getEraInfo(snapshotA.year).label}</p>
       <p><strong>Coverage note</strong>: ${escapeHtml(snapshotA.coverageNote)}</p>
       <p>Language diversity: ${snapshotA.languageScore.toFixed(1)}</p>
@@ -1882,7 +1922,7 @@ function renderDetails(snapshotA) {
 
   detail.innerHTML = `
     <p><strong>${snapshotA.region}</strong></p>
-    <p>Year A: ${snapshotA.year.toFixed(1)} → Year B: ${snapshotB.year.toFixed(1)}</p>
+    <p>Year A: ${formatYearValue(snapshotA.year)} → Year B: ${formatYearValue(snapshotB.year)}</p>
     <p><strong>Coverage note</strong>: ${escapeHtml(snapshotA.coverageNote)}</p>
     <p>Selected dimension Δ: <span class="delta ${dimDelta >= 0 ? "up" : "down"}">${formatDelta(dimDelta)} pp</span></p>
     <p>Language diversity Δ: <span class="delta ${langDelta >= 0 ? "up" : "down"}">${formatDelta(langDelta)} pp</span></p>
@@ -2301,6 +2341,7 @@ function renderTrendChart(light = false) {
       xaxis: {
         tickmode: "array",
         tickvals: YEARS.filter((y) => (y - YEAR_MIN) % 100 === 0),
+        ticktext: YEARS.filter((y) => (y - YEAR_MIN) % 100 === 0).map((y) => formatYearLabel(y)),
         showgrid: false,
         zeroline: false,
         tickfont: { size: 10 },
@@ -2425,7 +2466,7 @@ function renderMap(light = false) {
         lat: points.map((p) => p.lat),
         lon: points.map((p) => p.lon),
         text: points.map((p) => {
-          return `<b>${p.snapshot.region}</b><br>Year: ${p.snapshot.year.toFixed(1)}<br>Language group: ${p.group} (${p.pct.toFixed(1)}%)<br>Estimated speakers: ${p.speakersM.toFixed(1)}M<br>Broad route: historically anchored corridor<br>Dot density for this group: ${p.dotCount}<br><b>Top language mix</b><br>${topListHtml(
+          return `<b>${p.snapshot.region}</b><br>Year: ${formatYearValue(p.snapshot.year)}<br>Language group: ${p.group} (${p.pct.toFixed(1)}%)<br>Estimated speakers: ${p.speakersM.toFixed(1)}M<br>Broad route: historically anchored corridor<br>Dot density for this group: ${p.dotCount}<br><b>Top language mix</b><br>${topListHtml(
             p.snapshot.languageComp,
             3
           )}<br><b>Top ancestry groups (proxy)</b><br>${topListHtml(p.snapshot.ethnicComp, 2)}`;
@@ -2448,7 +2489,7 @@ function renderMap(light = false) {
       .join(" · ");
 
     legendMeta = {
-      title: `Historical language corridors · ${state.currentYear.toFixed(0)} · density≈speakers`,
+      title: `Historical language corridors · ${formatYearLabel(state.currentYear)} · density≈speakers`,
       gradient: "linear-gradient(90deg, #e11d48, #f59e0b, #84cc16, #10b981, #06b6d4, #6366f1, #d946ef)",
       min: groupsShown || "—",
       mid: "broad historically anchored routes",
@@ -2768,7 +2809,7 @@ function exportVisibleCsv() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `world-timeline-${state.scenarioKey}-${state.currentYear.toFixed(0)}${state.compareEnabled ? `-vs-${state.compareYear.toFixed(0)}` : ""}.csv`;
+  a.download = `world-timeline-${state.scenarioKey}-${state.currentYear}${state.compareEnabled ? `-vs-${state.compareYear}` : ""}.csv`;
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -2781,8 +2822,8 @@ function updateRuntimeStatus() {
   if (!status) return;
 
   const mode = state.compareEnabled
-    ? `${state.currentYear.toFixed(0)} → ${state.compareYear.toFixed(0)} (${dimensionLabel(state.dimension)} Δ)`
-    : `Year ${state.currentYear.toFixed(0)} (${dimensionLabel(state.dimension)})`;
+    ? `${formatYearLabel(state.currentYear)} → ${formatYearLabel(state.compareYear)} (${dimensionLabel(state.dimension)} Δ)`
+    : `Year ${formatYearLabel(state.currentYear)} (${dimensionLabel(state.dimension)})`;
 
   const motion = state.reducedMotion ? "reduced motion" : "full motion";
   const contrast = state.highContrast ? "high contrast" : "standard contrast";
@@ -2880,7 +2921,7 @@ function buildCompareYearSelect() {
   YEARS.forEach((year) => {
     const opt = document.createElement("option");
     opt.value = String(year);
-    opt.textContent = String(year);
+    opt.textContent = formatYearLabel(year);
     select.appendChild(opt);
   });
 
@@ -2904,12 +2945,12 @@ function buildOffsetSelect() {
 function syncControlsFromState() {
   const slider = byId("yearSlider");
   slider.value = String(state.currentYear);
-  byId("yearValue").textContent = state.currentYear.toFixed(1);
+  byId("yearValue").textContent = formatYearValue(state.currentYear);
 
   const mapYearSlider = byId("mapYearSlider");
   if (mapYearSlider) mapYearSlider.value = String(state.currentYear);
   const mapYearValue = byId("mapYearValue");
-  if (mapYearValue) mapYearValue.textContent = state.currentYear.toFixed(1);
+  if (mapYearValue) mapYearValue.textContent = formatYearValue(state.currentYear);
 
   byId("speedSelect").value = String(state.animationSpeed);
   byId("loopModeSelect").value = state.loopMode;

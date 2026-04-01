@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>World Timeline Language & Ancestry Map (1500–2025)</title>
+    <title>World Timeline Language & Ancestry Map (3000 BCE–2025)</title>
     <link rel="stylesheet" href="style.css" />
     <script src="./plotly-2.35.2.min.js"></script>
   </head>
@@ -16,7 +16,7 @@
       <p class="notice">
         ⚠️ Broad macroregional estimate only. Population totals are historical anchors, and language/ancestry-proxy balances are hand-curated regional shares around major inflection points; this is not DNA data or exact census truth.
       </p>
-      <p class="sub">4D framing: latitude/longitude + year + intensity dimension (color), constrained to 1500–2025.</p>
+      <p class="sub">4D framing: latitude/longitude + year + intensity dimension (color), constrained to 3000 BCE–2025.</p>
     </header>
 
     <main>
@@ -26,15 +26,15 @@
           <input
             id="yearSlider"
             type="range"
-            min="1500"
+            min="-3000"
             max="2025"
             step="1"
-            value="1500"
+            value="-3000"
             aria-label="Year A slider"
           />
           <div class="year-row">
             <button id="prevYearBtn" class="ghost" type="button" aria-label="Previous 25-year step">◀</button>
-            <div id="yearValue" class="value" aria-live="polite">1500.0</div>
+          <div id="yearValue" class="value" aria-live="polite">3000 BCE</div>
             <button id="nextYearBtn" class="ghost" type="button" aria-label="Next 25-year step">▶</button>
             <button id="playBtn" class="play" type="button" aria-label="Play or pause animation" aria-pressed="false">Play</button>
           </div>
@@ -231,13 +231,13 @@
         <input
           id="mapYearSlider"
           type="range"
-          min="1500"
+          min="-3000"
           max="2025"
           step="1"
-          value="1500"
+          value="-3000"
           aria-label="Timeline year slider"
         />
-        <div id="mapYearValue" class="map-year-value" aria-live="polite">1500.0</div>
+        <div id="mapYearValue" class="map-year-value" aria-live="polite">3000 BCE</div>
       </section>
     </main>
 
