@@ -1,45 +1,595 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ancientpagoda-rgb · Ambient Data Experiments</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <main class="shell">
-    <header>
-      <h1>ancientpagoda-rgb</h1>
-      <p class="tagline">Ambient, data-driven soundscapes in the browser.</p>
-      <p class="lede">Small browser-native experiments blending public data, generative audio, and lightweight visual systems.</p>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ancient Pagoda Labs - Living Atlases</title>
+    <meta
+      name="description"
+      content="Ancient Pagoda Labs builds interactive intelligence atlases for complex systems: Earth, brain, cosmos, and the operating layers between them."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07090c;
+        --surface: #10151b;
+        --surface-2: #151b22;
+        --ink: #f3f7fb;
+        --muted: #a8b3bf;
+        --line: rgba(214, 226, 238, 0.16);
+        --blue: #65a7ff;
+        --green: #65d391;
+        --gold: #d7b35d;
+        --red: #df6f64;
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      }
 
-    <section class="projects">
-      <article class="card">
-        <h2>Planetary Signal</h2>
-        <p>Layered ambient noise driven by space weather, global weather, and market motion.</p>
-        <p class="card-meta">Live browser audio · multi-source ambient feed</p>
-        <a class="btn" href="planetary-signal/">Open Planetary Signal</a>
-      </article>
+      * {
+        box-sizing: border-box;
+      }
 
-      <article class="card">
-        <h2>Reality Engine</h2>
-        <p>A continuously evolving "reality" state rendered as ambient audio and abstract visuals.</p>
-        <p class="card-meta">Audio + visuals · continuously evolving state</p>
-        <a class="btn" href="reality-engine/">Open Reality Engine</a>
-      </article>
+      html {
+        scroll-behavior: smooth;
+      }
 
-      <article class="card">
-        <h2>World Timeline Sim</h2>
-        <p>A historically anchored macroregional timeline for language balance, ancestry-proxy mix, and diversity intensity from 1500 to 2025.</p>
-        <p class="card-meta">Historical model · map-first timeline explorer</p>
-        <a class="btn" href="world-timeline-sim/">Open World Timeline Sim</a>
-      </article>
-    </section>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          var(--bg);
+        background-size: 42px 42px;
+      }
 
-    <footer>
-      <p>Built with public data streams, WebAudio, and canvas. Published as lightweight GitHub Pages experiments.</p>
-    </footer>
-  </main>
-</body>
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 64px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .mark-symbol {
+        width: 22px;
+        height: 22px;
+        border: 1px solid rgba(243, 247, 251, 0.7);
+        background:
+          linear-gradient(135deg, transparent 0 45%, rgba(243, 247, 251, 0.85) 45% 55%, transparent 55%),
+          linear-gradient(45deg, transparent 0 45%, rgba(101, 211, 145, 0.8) 45% 55%, transparent 55%),
+          #121920;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+      }
+
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+
+      .hero {
+        min-height: calc(100vh - 64px);
+        display: grid;
+        align-content: center;
+        gap: 28px;
+        padding: 56px 0 38px;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--green);
+        font: 700 0.78rem/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 960px;
+        margin: 0;
+        font-size: clamp(3.1rem, 9vw, 8.4rem);
+        line-height: 0.86;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 760px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.34rem);
+        line-height: 1.52;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--ink);
+        background: #19212a;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .button.primary {
+        border-color: rgba(101, 211, 145, 0.72);
+        background: #dcefe3;
+        color: #0c1510;
+      }
+
+      .atlas-preview {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        min-height: 180px;
+      }
+
+      .preview-tile {
+        position: relative;
+        min-height: 180px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .preview-tile iframe {
+        position: absolute;
+        inset: 0;
+        width: 150%;
+        height: 150%;
+        border: 0;
+        transform: scale(0.67);
+        transform-origin: 0 0;
+        pointer-events: none;
+        filter: saturate(0.95) contrast(1.05);
+      }
+
+      .preview-label {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        z-index: 2;
+        padding: 6px 8px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.68);
+        color: var(--ink);
+        font: 700 0.76rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      section {
+        padding: 64px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-head {
+        display: grid;
+        gap: 10px;
+        max-width: 760px;
+        margin-bottom: 24px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .section-head p,
+      .card p,
+      .offer p,
+      .archive p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 14px;
+        min-height: 360px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 21, 27, 0.88);
+        text-decoration: none;
+      }
+
+      .card-media {
+        position: relative;
+        min-height: 170px;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #07090c;
+      }
+
+      .card-media iframe {
+        position: absolute;
+        inset: 0;
+        width: 150%;
+        height: 150%;
+        border: 0;
+        transform: scale(0.67);
+        transform-origin: 0 0;
+        pointer-events: none;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .tag {
+        display: inline-flex;
+        width: fit-content;
+        padding: 5px 7px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        color: var(--muted);
+        font: 700 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.42rem;
+        line-height: 1.1;
+      }
+
+      .card-link {
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .offer {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 24px;
+        align-items: start;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface-2);
+      }
+
+      .offer h2 {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+      }
+
+      .offer-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .offer-list li {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(7, 9, 12, 0.42);
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .offer-list b {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--ink);
+      }
+
+      .archive-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .archive {
+        min-height: 156px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 21, 27, 0.72);
+        text-decoration: none;
+      }
+
+      .archive h3 {
+        margin: 0 0 8px;
+        font-size: 1.08rem;
+      }
+
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 28px 0 42px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 900px) {
+        .atlas-preview,
+        .card-grid,
+        .archive-grid,
+        .offer {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 16px 0;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .shell {
+          width: min(100% - 22px, 1180px);
+        }
+
+        .hero {
+          padding-top: 38px;
+        }
+
+        .hero-actions {
+          display: grid;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: space-between;
+          gap: 10px;
+          font-size: 0.84rem;
+        }
+
+        .preview-tile,
+        .card-media {
+          min-height: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="mark" href="./" aria-label="Ancient Pagoda Labs home">
+          <span class="mark-symbol" aria-hidden="true"></span>
+          <span>Ancient Pagoda Labs</span>
+        </a>
+        <div class="nav-links">
+          <a href="#atlases">Atlases</a>
+          <a href="#offer">Commission</a>
+          <a href="https://github.com/ancientpagoda-rgb">GitHub</a>
+        </div>
+      </nav>
+
+      <main>
+        <header class="hero">
+          <p class="kicker">Living atlases for complex systems</p>
+          <h1>Ancient Pagoda Labs</h1>
+          <p class="lede">
+            Interactive intelligence maps across scale: Earth systems, neural wiring,
+            cosmic time, and the operating layers between them.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#offer">Commission an atlas</a>
+            <a class="button" href="#atlases">View demos</a>
+          </div>
+
+          <div class="atlas-preview" aria-label="Live atlas previews">
+            <a class="preview-tile" href="https://ancientpagoda-rgb.github.io/world/">
+              <iframe title="World preview" src="https://ancientpagoda-rgb.github.io/world/"></iframe>
+              <span class="preview-label">World</span>
+            </a>
+            <a class="preview-tile" href="https://ancientpagoda-rgb.github.io/brain-wiring-atlas/">
+              <iframe title="Brain Wiring Atlas preview" src="https://ancientpagoda-rgb.github.io/brain-wiring-atlas/"></iframe>
+              <span class="preview-label">Brain</span>
+            </a>
+            <a class="preview-tile" href="https://ancientpagoda-rgb.github.io/cosmic-clock/">
+              <iframe title="Cosmic Clock preview" src="https://ancientpagoda-rgb.github.io/cosmic-clock/"></iframe>
+              <span class="preview-label">Cosmos</span>
+            </a>
+          </div>
+        </header>
+
+        <section id="atlases" aria-labelledby="atlases-heading">
+          <div class="section-head">
+            <p class="kicker">Public demo suite</p>
+            <h2 id="atlases-heading">Three systems, one interface thesis.</h2>
+            <p>
+              Each atlas turns dense technical data into a spatial surface that can be
+              explored, explained, and eventually used for decisions.
+            </p>
+          </div>
+
+          <div class="card-grid">
+            <a class="card" href="https://ancientpagoda-rgb.github.io/world/">
+              <div class="card-media">
+                <iframe title="World demo preview" src="https://ancientpagoda-rgb.github.io/world/"></iframe>
+              </div>
+              <div>
+                <div class="tag-row">
+                  <span class="tag">Earth</span>
+                  <span class="tag">Weather</span>
+                  <span class="tag">News</span>
+                </div>
+                <h3>World</h3>
+              </div>
+              <p>
+                A live globe briefing surface for country intelligence, weather overlays,
+                headlines, search, and navigation through global signals.
+              </p>
+              <span class="card-link">Open World</span>
+            </a>
+
+            <a class="card" href="https://ancientpagoda-rgb.github.io/brain-wiring-atlas/">
+              <div class="card-media">
+                <iframe title="Brain Wiring Atlas demo preview" src="https://ancientpagoda-rgb.github.io/brain-wiring-atlas/"></iframe>
+              </div>
+              <div>
+                <div class="tag-row">
+                  <span class="tag">Neuro</span>
+                  <span class="tag">3D</span>
+                  <span class="tag">Research</span>
+                </div>
+                <h3>Brain Wiring Atlas</h3>
+              </div>
+              <p>
+                A 3D anatomy and tract visualization with structural bundles, functional
+                network overlays, dopamine pathways, labels, and exportable figures.
+              </p>
+              <span class="card-link">Open Brain Wiring Atlas</span>
+            </a>
+
+            <a class="card" href="https://ancientpagoda-rgb.github.io/cosmic-clock/">
+              <div class="card-media">
+                <iframe title="Cosmic Clock demo preview" src="https://ancientpagoda-rgb.github.io/cosmic-clock/"></iframe>
+              </div>
+              <div>
+                <div class="tag-row">
+                  <span class="tag">Time</span>
+                  <span class="tag">Solar</span>
+                  <span class="tag">Cosmos</span>
+                </div>
+                <h3>Cosmic Clock</h3>
+              </div>
+              <p>
+                A time-aware Earth, Solar System, and universe atlas with simulated
+                dates, planet positions, local weather, and cosmic epoch controls.
+              </p>
+              <span class="card-link">Open Cosmic Clock</span>
+            </a>
+          </div>
+        </section>
+
+        <section id="offer" aria-labelledby="offer-heading">
+          <div class="offer">
+            <div class="section-head">
+              <p class="kicker">Commission an atlas</p>
+              <h2 id="offer-heading">Make a hard system visible.</h2>
+              <p>
+                Ancient Pagoda Labs builds custom interactive atlases for teams that need
+                to understand a domain quickly, explain it clearly, or operate it with
+                better context.
+              </p>
+              <div class="hero-actions">
+                <a class="button primary" href="https://github.com/ancientpagoda-rgb">Start on GitHub</a>
+                <a class="button" href="#atlases">Review demos</a>
+              </div>
+            </div>
+
+            <ul class="offer-list">
+              <li>
+                <b>Operational intelligence</b>
+                Maps for global risk, logistics, weather exposure, infrastructure,
+                markets, portfolios, and field operations.
+              </li>
+              <li>
+                <b>Research visualization</b>
+                Browser-based 3D and data surfaces for labs, educators, analysts,
+                science communicators, and technical teams.
+              </li>
+              <li>
+                <b>Custom atlas builds</b>
+                Fixed-scope prototypes that combine data ingestion, interface design,
+                spatial visualization, and deployable static or app-based delivery.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section aria-labelledby="archive-heading">
+          <div class="section-head">
+            <p class="kicker">Archive</p>
+            <h2 id="archive-heading">Earlier experiments remain part of the lab.</h2>
+          </div>
+
+          <div class="archive-grid">
+            <a class="archive" href="./universe-live-desktop/">
+              <h3>Universe Live Desktop</h3>
+              <p>GPU-rendered local universe, garden, weather, ecology, and desktop surface.</p>
+            </a>
+            <a class="archive" href="./history-of-thought/">
+              <h3>History of Thought</h3>
+              <p>A browsable lineage map from oral tradition to writing, science, and AI.</p>
+            </a>
+            <a class="archive" href="./letter-history/">
+              <h3>Letter History</h3>
+              <p>A poster-style map of how modern letters descend, split, and merge.</p>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>Ancient Pagoda Labs</span>
+        <span>Living atlases for complex systems</span>
+      </footer>
+    </div>
+  </body>
 </html>

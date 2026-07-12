@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reality Engine · Planetary Signal v2</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Reality Engine</h1>
+      <p class="tagline">Layered ambient audio & visuals driven by live data.</p>
+    </header>
+
+    <section class="controls" aria-label="Simulation controls">
+      <div class="transport">
+        <button id="startButton">Start</button>
+        <button id="stopButton" disabled>Stop</button>
+      </div>
+      <div class="toggles">
+        <label><input type="checkbox" id="audioToggle" checked /> Audio</label>
+        <label><input type="checkbox" id="visualsToggle" checked /> Visuals</label>
+        <label><input type="checkbox" id="logToggle" /> Event log</label>
+        <select id="presetSelect" aria-label="Preset">
+          <option value="calm">Calm</option>
+          <option value="active">Active</option>
+          <option value="deep">Deep Space</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="main-panel">
+      <canvas id="scene" aria-label="Reality Engine visuals"></canvas>
+      <aside class="sidebar">
+        <h2>World State</h2>
+        <div id="regimeLabel" class="regime">Regime: <span>calm</span></div>
+        <ul id="worldSnapshot"></ul>
+        <div id="eventLog" class="event-log" hidden></div>
+      </aside>
+    </section>
+
+    <footer>
+      <p>
+        Planetary Signal v2 · Data updates every few minutes · World ticks every second ·
+        <a href="https://ancientpagoda-rgb.github.io/planetary-signal/" target="_blank" rel="noopener">Planetary Signal v1</a>
+      </p>
+    </footer>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
