@@ -1,14 +1,18 @@
-# ancientpagoda-rgb.github.io
+# Ancient Pagoda Labs
 
-Landing page for ambient, data-driven web experiments:
+Root GitHub Pages hub for Ancient Pagoda Labs: interactive intelligence atlases for complex systems.
 
-- **Planetary Signal** – Ambient audio driven by space/planetary/human data
-- **Reality Engine** – Evolving world state rendered as sound + visuals
-- **World Timeline Sim** – Historically anchored macroregional language / ancestry timeline map
+Current public demo suite:
+
+- **World** - refreshed globe briefing surface with NASA Earth texture snapshots, NOAA GFS weather overlays, country-linked headlines, search, and navigation.
+- **Brain Wiring Atlas** - Pandora/TractSeg-derived 3D structural tract atlas with bilateral bundles and clearly labeled schematic functional/neurochemistry overlays.
+- **Cosmic Clock** - time-aware Earth, Solar System, and universe atlas with Astronomy Engine positions, sidereal Earth alignment, and ΛCDM-informed epoch controls.
 
 Published via GitHub Pages:
 
 - https://ancientpagoda-rgb.github.io/
-- https://ancientpagoda-rgb.github.io/planetary-signal/
-- https://ancientpagoda-rgb.github.io/reality-engine/
-- https://ancientpagoda-rgb.github.io/world-timeline-sim/
+- https://ancientpagoda-rgb.github.io/world/
+- https://ancientpagoda-rgb.github.io/brain-wiring-atlas/
+- https://ancientpagoda-rgb.github.io/cosmic-clock/
+
+Older experiments remain in the archive section of the hub.
