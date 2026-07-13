@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "description": "Compact seed histories for modern Latin letters.",
+  "letters": [
+    {
+      "letter": "A",
+      "name": "A",
+      "lineage": ["aleph", "alpha", "Latin A"],
+      "origin": "Often traced to Semitic aleph, associated with an ox/head sign, through Greek alpha.",
+      "mutation": "Rotated and abstracted from pictorial origins into a stable triangular capital.",
+      "confidence": "high"
+    },
+    {
+      "letter": "B",
+      "name": "B",
+      "lineage": ["beth", "beta", "Latin B"],
+      "origin": "Traced to Semitic beth, usually glossed as house, through Greek beta.",
+      "mutation": "The house-like form became rounded in Greek and Latin writing.",
+      "confidence": "high"
+    },
+    {
+      "letter": "C",
+      "name": "C",
+      "lineage": ["gimel", "gamma", "Etruscan C", "Latin C"],
+      "origin": "Latin C descends from a gamma-related form used by Etruscan and Latin scribes.",
+      "mutation": "Its sound history split: C first covered /g/ and /k/ before G was created.",
+      "confidence": "high"
+    },
+    {
+      "letter": "D",
+      "name": "D",
+      "lineage": ["daleth", "delta", "Latin D"],
+      "origin": "Traced to Semitic daleth, usually glossed as door, through Greek delta.",
+      "mutation": "A triangular delta line became the rounded Latin D.",
+      "confidence": "high"
+    },
+    {
+      "letter": "E",
+      "name": "E",
+      "lineage": ["he", "epsilon", "Latin E"],
+      "origin": "Traced to Semitic he through Greek epsilon.",
+      "mutation": "Greek vowel adaptation helped turn a consonantal Semitic sign into a vowel letter.",
+      "confidence": "high"
+    },
+    {
+      "letter": "F",
+      "name": "F",
+      "lineage": ["waw", "digamma", "Etruscan F", "Latin F"],
+      "origin": "Latin F is tied to waw/digamma pathways through Greek and Etruscan forms.",
+      "mutation": "A sign connected with /w/ became Latin /f/ through Etruscan adaptation.",
+      "confidence": "medium"
+    },
+    {
+      "letter": "G",
+      "name": "G",
+      "lineage": ["gimel", "gamma", "Latin C", "Latin G"],
+      "origin": "G was created in Latin as a modified C to distinguish /g/ from /k/.",
+      "mutation": "A stroke turned C into a new letter species.",
+      "confidence": "high"
+    },
+    {
+      "letter": "H",
+      "name": "H",
+      "lineage": ["heth/he", "eta", "Latin H"],
+      "origin": "H descends through Greek eta/related forms, with sound values shifting across languages.",
+      "mutation": "A consonant sign became a vowel in some Greek dialects but remained H-like in Latin.",
+      "confidence": "medium"
+    },
+    {
+      "letter": "I",
+      "name": "I",
+      "lineage": ["yod", "iota", "Latin I"],
+      "origin": "Traced to Semitic yod through Greek iota.",
+      "mutation": "A small linear mark became both vowel I and, later, the ancestor of J.",
+      "confidence": "high"
+    },
+    {
+      "letter": "J",
+      "name": "J",
+      "lineage": ["yod", "iota", "Latin I", "J"],
+      "origin": "J is a later differentiated form of I.",
+      "mutation": "A swash or terminal variant of I became a separate letter.",
+      "confidence": "high"
+    },
+    {
+      "letter": "K",
+      "name": "K",
+      "lineage": ["kaph", "kappa", "Latin K"],
+      "origin": "Traced to Semitic kaph through Greek kappa.",
+      "mutation": "Kept a recognizable angled skeleton while losing most pictorial meaning.",
+      "confidence": "high"
+    },
+    {
+      "letter": "L",
+      "name": "L",
+      "lineage": ["lamed", "lambda", "Latin L"],
+      "origin": "Traced to Semitic lamed through Greek lambda.",
+      "mutation": "A more complex early sign became a simple right angle in Latin capitals.",
+      "confidence": "high"
+    },
+    {
+      "letter": "M",
+      "name": "M",
+      "lineage": ["mem", "mu", "Latin M"],
+      "origin": "Traced to Semitic mem, usually associated with water, through Greek mu.",
+      "mutation": "Wave-like ancestry stabilized into angular strokes.",
+      "confidence": "high"
+    },
+    {
+      "letter": "N",
+      "name": "N",
+      "lineage": ["nun", "nu", "Latin N"],
+      "origin": "Traced to Semitic nun through Greek nu.",
+      "mutation": "A serpentine/linear ancestor became a diagonal bridge between vertical stems.",
+      "confidence": "high"
+    },
+    {
+      "letter": "O",
+      "name": "O",
+      "lineage": ["ayin", "omicron", "Latin O"],
+      "origin": "Traced to Semitic ayin, often glossed as eye, through Greek omicron.",
+      "mutation": "A pictorial eye became one of the most stable circular letters.",
+      "confidence": "high"
+    },
+    {
+      "letter": "P",
+      "name": "P",
+      "lineage": ["pe", "pi", "Latin P"],
+      "origin": "Traced to Semitic pe through Greek pi.",
+      "mutation": "The form changed strongly across scripts before stabilizing as Latin P.",
+      "confidence": "high"
+    },
+    {
+      "letter": "Q",
+      "name": "Q",
+      "lineage": ["qoph", "qoppa", "Latin Q"],
+      "origin": "Traced to Semitic qoph through Greek qoppa and Italic use.",
+      "mutation": "A marginal Greek letter survived strongly in Latin as Q.",
+      "confidence": "high"
+    },
+    {
+      "letter": "R",
+      "name": "R",
+      "lineage": ["resh", "rho", "Latin R"],
+      "origin": "Traced to Semitic resh through Greek rho.",
+      "mutation": "Latin added a leg to distinguish R from P-like forms.",
+      "confidence": "high"
+    },
+    {
+      "letter": "S",
+      "name": "S",
+      "lineage": ["shin/samekh", "sigma", "Latin S"],
+      "origin": "Latin S comes through Greek sigma, with deeper Semitic ancestry debated in details.",
+      "mutation": "Angular zigzags softened into the familiar curve.",
+      "confidence": "medium"
+    },
+    {
+      "letter": "T",
+      "name": "T",
+      "lineage": ["taw", "tau", "Latin T"],
+      "origin": "Traced to Semitic taw through Greek tau.",
+      "mutation": "A mark/cross sign became the simple vertical-and-bar capital.",
+      "confidence": "high"
+    },
+    {
+      "letter": "U",
+      "name": "U",
+      "lineage": ["waw", "upsilon", "Latin V", "U"],
+      "origin": "U differentiated from V much later in Latin-script history.",
+      "mutation": "A rounded variant separated vowel U from consonantal V.",
+      "confidence": "high"
+    },
+    {
+      "letter": "V",
+      "name": "V",
+      "lineage": ["waw", "upsilon", "Latin V"],
+      "origin": "V belongs to the waw/upsilon family and originally covered vowel and consonant values.",
+      "mutation": "A single Latin V later split into U, V, and helped produce W.",
+      "confidence": "high"
+    },
+    {
+      "letter": "W",
+      "name": "W",
+      "lineage": ["waw", "Latin V", "double V", "W"],
+      "origin": "W is a later doubled form of V/U used for Germanic sounds.",
+      "mutation": "Two V forms fused into a new letter.",
+      "confidence": "high"
+    },
+    {
+      "letter": "X",
+      "name": "X",
+      "lineage": ["samekh/chi/xi pathways", "Greek X/Chi", "Latin X"],
+      "origin": "X has a more tangled route through Greek and Italic letter values.",
+      "mutation": "A crossed form became fixed as Latin X with /ks/ value.",
+      "confidence": "medium"
+    },
+    {
+      "letter": "Y",
+      "name": "Y",
+      "lineage": ["waw", "upsilon", "Greek Y", "Latin Y"],
+      "origin": "Y was borrowed into Latin from Greek upsilon for Greek loanwords.",
+      "mutation": "A Greek vowel sign became a Latin scholarly/import letter.",
+      "confidence": "high"
+    },
+    {
+      "letter": "Z",
+      "name": "Z",
+      "lineage": ["zayin", "zeta", "Latin Z"],
+      "origin": "Z descends from zayin/zeta and was removed then later restored in Latin usage.",
+      "mutation": "A letter can go dormant in one alphabet and return through borrowing.",
+      "confidence": "high"
+    }
+  ]
+}
+
