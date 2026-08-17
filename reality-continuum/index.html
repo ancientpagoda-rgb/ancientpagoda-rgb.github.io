@@ -2,44 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Reality Continuum</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <canvas id="world"></canvas>
+
   <header class="topbar">
     <div>
       <div class="eyebrow">REALITY CONTINUUM</div>
       <h1 id="scene-title">Observable Universe</h1>
       <div id="scene-subtitle" class="subtitle"></div>
     </div>
+  </header>
+
+  <button
+    id="mobile-controls-toggle"
+    class="mobile-controls-toggle"
+    type="button"
+    aria-controls="controls-shell"
+    aria-expanded="false"
+  >
+    <span aria-hidden="true">☰</span>
+    <span>Controls</span>
+  </button>
+
+  <div id="controls-shell" class="controls-shell">
     <div class="mode-switch" role="group" aria-label="Reality mode">
       <button data-mode="simulated" class="active">Simulated</button>
       <button data-mode="reconstructed">Reconstructed</button>
       <button data-mode="observed">Observed</button>
     </div>
-  </header>
 
-  <aside id="scale-rail" class="scale-rail" aria-label="Scale navigation"></aside>
+    <aside id="scale-rail" class="scale-rail" aria-label="Scale navigation"></aside>
 
-  <section class="inspector">
-    <div class="inspector-head">
-      <span id="scale-label"></span>
-      <span id="truth-label" class="truth-pill"></span>
-    </div>
-    <p id="scene-description"></p>
-    <div id="metrics" class="metrics"></div>
-  </section>
+    <section class="inspector">
+      <div class="inspector-head">
+        <span id="scale-label"></span>
+        <span id="truth-label" class="truth-pill"></span>
+      </div>
+      <p id="scene-description"></p>
+      <div id="metrics" class="metrics"></div>
+    </section>
 
-  <section class="timeline-panel">
-    <div class="timeline-row">
-      <button id="play">Pause</button>
-      <input id="timeline" type="range" min="0" max="1000" value="760" />
-      <span id="time-label"></span>
-    </div>
-    <div class="continuity-note">One state graph · one clock · multiple scales · explicit provenance</div>
-  </section>
+    <section class="timeline-panel">
+      <div class="timeline-row">
+        <button id="play">Pause</button>
+        <input id="timeline" type="range" min="0" max="1000" value="760" />
+        <span id="time-label"></span>
+      </div>
+      <div class="continuity-note">One state graph · one clock · multiple scales · explicit provenance</div>
+    </section>
+  </div>
 
   <script type="module" src="./src/app.js"></script>
 </body>
