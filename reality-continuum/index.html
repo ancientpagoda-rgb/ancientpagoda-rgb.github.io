@@ -3,8 +3,50 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>Reality Continuum</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./styles.css?v=20260817-1138" />
+  <style>
+    /* Critical iPhone layout: keep the world unobstructed even if an older external stylesheet is cached. */
+    @media (max-width: 900px) {
+      .controls-shell { display: none !important; }
+      .controls-shell.open {
+        display: grid !important;
+        position: fixed !important;
+        z-index: 50 !important;
+        left: 10px !important;
+        right: 10px !important;
+        bottom: calc(68px + env(safe-area-inset-bottom)) !important;
+        max-height: 70dvh !important;
+        overflow: auto !important;
+        gap: 12px !important;
+        padding: 12px !important;
+        border: 1px solid rgba(255,255,255,.14) !important;
+        border-radius: 20px !important;
+        background: rgba(8,12,18,.94) !important;
+        backdrop-filter: blur(22px) !important;
+      }
+      .mobile-controls-toggle {
+        display: flex !important;
+        position: fixed !important;
+        z-index: 60 !important;
+        right: 12px !important;
+        bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+        width: 48px !important;
+        height: 48px !important;
+        padding: 0 !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: 1px solid rgba(255,255,255,.18) !important;
+        border-radius: 999px !important;
+        color: #f5f7fb !important;
+        background: rgba(8,12,18,.88) !important;
+      }
+      .mobile-controls-toggle span:last-child { display: none !important; }
+      .topbar { right: 76px !important; }
+      .subtitle { display: none !important; }
+    }
+  </style>
 </head>
 <body>
   <canvas id="world"></canvas>
@@ -23,6 +65,7 @@
     type="button"
     aria-controls="controls-shell"
     aria-expanded="false"
+    aria-label="Open controls"
   >
     <span aria-hidden="true">☰</span>
     <span>Controls</span>
@@ -56,6 +99,6 @@
     </section>
   </div>
 
-  <script type="module" src="./src/app.js"></script>
+  <script type="module" src="./src/app.js?v=20260817-1138"></script>
 </body>
 </html>
