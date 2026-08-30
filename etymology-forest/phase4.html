@@ -1,0 +1,97 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#040806"><title>Etymology Forest — Graph Geography</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#040806;color:#eef8f0;font-family:system-ui,-apple-system,Segoe UI,sans-serif}canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}.g{background:#07120cdd;border:1px solid #bcefc026;box-shadow:0 14px 40px #0008;backdrop-filter:blur(13px)}.top{position:fixed;z-index:4;top:12px;left:12px;right:12px;display:flex;gap:7px;pointer-events:none}.brand,.search,.btns{pointer-events:auto}.brand{padding:10px 13px;border-radius:15px;white-space:nowrap}.brand b{font-size:13px;letter-spacing:.13em}.brand small{display:block;color:#91a898;font-size:9px}.search{display:flex;flex:1;max-width:620px;padding:6px;border-radius:15px}.search input{min-width:0;flex:1;background:0;border:0;outline:0;color:#fff;padding:7px;font-size:14px}.search button,.btns button{border:1px solid #bcefc02d;background:#17331f;color:#eef8f0;border-radius:10px;padding:8px 11px}.btns{display:flex;gap:5px;margin-left:auto}.status{position:fixed;z-index:4;left:14px;top:77px;padding:8px 11px;border-radius:12px;color:#abc4b0;font-size:10px;text-transform:uppercase}.panel{position:fixed;z-index:4;right:14px;bottom:14px;width:min(390px,calc(100vw - 28px));max-height:42vh;overflow:auto;padding:15px;border-radius:18px}.panel h2{font:500 30px/1 Georgia,serif;margin:5px 0}.panel p{font-size:12.5px;line-height:1.45;color:#c6d7ca}.eye{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#82a58a}.meta{font-size:10px;line-height:1.55;color:#91a898;border-top:1px solid #bcefc018;padding-top:8px}.legend{position:fixed;z-index:4;left:14px;bottom:14px;padding:9px 11px;border-radius:12px;font-size:9px;color:#91a898}.toast{position:fixed;z-index:5;left:50%;bottom:30px;transform:translateX(-50%);padding:9px 12px;border-radius:11px;opacity:0;transition:.2s}@media(max-width:760px){.top{left:10px;right:10px;top:10px;flex-wrap:wrap}.brand{flex:1}.brand b{font-size:11px}.brand small{display:none}.btns button:first-child{display:none}.search{order:3;flex-basis:100%;max-width:none}.search input{font-size:16px}.status{top:106px;left:10px}.panel{left:10px;right:10px;bottom:10px;width:auto;max-height:31vh}.legend{display:none}.toast{bottom:34vh}}</style></head><body><canvas id="c"></canvas><div class="top"><div class="brand g"><b>ETYMOLOGY FOREST</b><small>Phase 4 · geography shaped by relationships</small></div><div class="search g"><input id="q" placeholder="Search a word…"><button id="go">Go</button></div><div class="btns"><button id="atlas">Atlas</button><button id="mode">Lineage</button><button id="home">Window</button></div></div><div id="status" class="status g">building graph geography…</div><div id="panel" class="panel g"></div><div class="legend g">green inheritance · orange borrowing · blue compound · purple learned</div><div id="toast" class="toast g"></div><script>'use strict';const C=document.querySelector('#c'),X=C.getContext('2d'),S=document.querySelector('#status'),P=document.querySelector('#panel');let W,H,D;function R(){W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,2);C.width=W*D;C.height=H*D;X.setTransform(D,0,0,D,0,0)}R();addEventListener('resize',R);const Hs={pie:[-300,850,'#8d7545','PROTO-INDO-EUROPEAN'],g:[-1150,150,'#416d51','GERMANIC'],r:[650,20,'#7d5145','LATIN / ROMANCE'],k:[650,1250,'#586294','GREEK / SCIENTIFIC'],b:[2200,650,'#806d48','BORROWING ROUTES']},EC={i:'#8bc59a',b:'#e2a46e',c:'#77b6d1',l:'#b698dc',d:'#9fc3a4'},LC={English:'#e2ffe3','Middle English':'#b6e0b4','Old English':'#7fbd88','Old Norse':'#76afa4','Proto-Germanic':'#5f9876','Proto-Indo-European':'#d7bd7b',Latin:'#df9b74','Old French':'#c98276',Greek:'#a6afe5','New Latin':'#bd9edb',Arabic:'#dab866',Persian:'#c6a96f','Ottoman Turkish':'#bca873',Italian:'#d3907b',Sanskrit:'#d7af7a',Hindi:'#d49b78',Czech:'#9db9ca',Japanese:'#db9caa'};let ns=[],es=[];const rows=`p2|*dwóh₁|Proto-Indo-European|reconstructed|two|pie
+pg2|*twai|Proto-Germanic|reconstructed|two|g
+oe2|twā|Old English|Old English|two|g
+two|two|English|Modern|number 2|g
+pw|*windaz|Proto-Germanic|reconstructed|wind|g
+pe|*augô|Proto-Germanic|reconstructed|eye|g
+vw|vindauga|Old Norse|Old Norse|wind-eye; window|g
+mw|windowe|Middle English|c. 1200s|window|g
+window|window|English|Modern|opening in a wall fitted with glass|g
+pf|*ph₂tḗr|Proto-Indo-European|reconstructed|father|pie
+pgf|*fadēr|Proto-Germanic|reconstructed|father|g
+of|fæder|Old English|Old English|father|g
+father|father|English|Modern|male parent|g
+pm|*méh₂tēr|Proto-Indo-European|reconstructed|mother|pie
+pgm|*mōdēr|Proto-Germanic|reconstructed|mother|g
+om|mōdor|Old English|Old English|mother|g
+mother|mother|English|Modern|female parent|g
+pn|*nókʷts|Proto-Indo-European|reconstructed|night|pie
+pgn|*nahts|Proto-Germanic|reconstructed|night|g
+on|niht|Old English|Old English|night|g
+night|night|English|Modern|period of darkness|g
+pd|*deh₃-|Proto-Indo-European|reconstructed|give|pie
+ld|dō|Latin|Classical Latin|I give|r
+datum|datum|Latin|Latin|a thing given|r
+data|data|English|Modern|facts or information|r
+put|putāre|Latin|Latin|reckon or consider|r
+comp|computāre|Latin|Latin|calculate|r
+compute|compute|English|17th c.|calculate|r
+computer|computer|English|Modern|calculating machine|r
+bios|βίος|Greek|Ancient Greek|life|k
+logos|λόγος|Greek|Ancient Greek|word; account; study|k
+biology|biology|English|19th c.|study of life|k
+demos|δῆμος|Greek|Ancient Greek|the people|k
+kratos|κράτος|Greek|Ancient Greek|power or rule|k
+demokratia|δημοκρατία|Greek|Ancient Greek|rule by the people|k
+democracy|democracy|English|Modern|government by the people|k
+philos|φίλος|Greek|Ancient Greek|loving or dear|k
+sophia|σοφία|Greek|Ancient Greek|wisdom|k
+philosophia|φιλοσοφία|Greek|Ancient Greek|love of wisdom|k
+philosophy|philosophy|English|Modern|study of fundamental questions|k
+jabr|al-jabr|Arabic|Medieval Arabic|restoration or reunion|b
+algebra|algebra|English|Modern|branch of mathematics|b
+qahwa|qahwa|Arabic|Arabic|coffee|b
+kahve|kahve|Ottoman Turkish|Ottoman Turkish|coffee|b
+caffe|caffè|Italian|Italian|coffee|b
+coffee|coffee|English|Modern|coffee|b
+sarkara|śarkarā|Sanskrit|Sanskrit|grit; sugar|b
+shakar|šakar|Persian|Persian|sugar|b
+sukkar|sukkar|Arabic|Arabic|sugar|b
+sucre|sucre|Old French|Old French|sugar|r
+sugar|sugar|English|Modern|sugar|b
+robota|robota|Czech|Czech|forced labor|b
+robot|robot|English|20th c.|artificial worker|b
+ava|avatāra|Sanskrit|Sanskrit|descent; incarnation|b
+avatar|avatar|English|Modern|incarnation; digital persona|b
+sushi0|寿司 / すし|Japanese|Japanese|sushi|b
+sushi|sushi|English|Modern|Japanese rice dish|b`;const er=`p2>pg2:i
+pg2>oe2:i
+oe2>two:i
+pw>vw:c
+pe>vw:c
+vw>mw:b
+mw>window:i
+pf>pgf:i
+pgf>of:i
+of>father:i
+pm>pgm:i
+pgm>om:i
+om>mother:i
+pn>pgn:i
+pgn>on:i
+on>night:i
+pd>ld:i
+ld>datum:d
+datum>data:b
+put>comp:d
+comp>compute:b
+compute>computer:d
+bios>biology:c
+logos>biology:c
+demos>demokratia:c
+kratos>demokratia:c
+demokratia>democracy:l
+philos>philosophia:c
+sophia>philosophia:c
+philosophia>philosophy:l
+jabr>algebra:b
+qahwa>kahve:b
+kahve>caffe:b
+caffe>coffee:b
+sarkara>shakar:b
+shakar>sukkar:b
+sukkar>sucre:b
+sucre>sugar:b
+robota>robot:b
+ava>avatar:b
+sushi0>sushi:b`;function hash(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}for(const z of rows.split('\n')){let[id,w,l,era,m,h]=z.split('|'),a=hash(id),H=Hs[h];ns.push({id,w,l,era,m,h,x:H[0]+((a&1023)/1023-.5)*900,y:H[1]+(((a>>>10)&1023)/1023-.5)*700,vx:0,vy:0})}for(const z of er.split('\n')){let[a,b,t]=z.split(/>|:/);es.push({a,b,t})}const by=Object.fromEntries(ns.map(n=>[n.id,n]));for(let q=0;q<520;q++){for(const e of es){let a=by[e.a],b=by[e.b],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,f=(d-(e.t==='b'?210:175))*.006;dx/=d;dy/=d;a.vx+=dx*f;a.vy+=dy*f;b.vx-=dx*f;b.vy-=dy*f}for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){let a=ns[i],b=ns[j],dx=b.x-a.x,dy=b.y-a.y,d=dx*dx+dy*dy+40;if(d<240000){let f=1200/d;a.vx-=dx*f;a.vy-=dy*f;b.vx+=dx*f;b.vy+=dy*f}}for(const n of ns){let h=Hs[n.h];n.vx+=(h[0]-n.x)*.00035;n.vy+=(h[1]-n.y)*.00035;n.vx*=.84;n.vy*=.84;n.x+=n.vx;n.y+=n.vy}}let com={};for(const k in Hs){let a=ns.filter(n=>n.h===k);if(a.length)com[k]={x:a.reduce((s,n)=>s+n.x,0)/a.length,y:a.reduce((s,n)=>s+n.y,0)/a.length,r:260+Math.sqrt(a.length)*95,c:Hs[k][2],name:Hs[k][3]}}let canopy=[],ci=new Map(),src='built-in';const fb=`the of and to a in is that for it on with as are was be by this from at or an have not but they you we one two three time year day people world life hand eye house water fire earth air sun moon star night light word language english history book science art music love fear war peace king queen city town country road river sea tree forest animal plant food work money law school family friend home computer data internet code system machine robot biology physics chemistry medicine market trade government mind body heart head name place thing number group power change old new good bad great small big long short high low first last right left north south east west before after under over through between around into out up down more less many few most some any all no yes make get give take see know think say tell ask use find look come go run walk live die grow build create learn read write speak play buy sell pay help keep move turn open close start stop true false real human social culture memory future past today tomorrow yesterday window algebra avatar sushi biology philosophy democracy coffee sugar father mother`.split(/\s+/);function gh(w){if(/ology|graph|scope|cracy|bio|physics|chem/.test(w))return'k';if(/tion$|ment$|ity$|ous$|ance$|ence$|ive$|al$|ic$|age$/.test(w))return'r';if(/^(algebra|avatar|sushi|robot|coffee|sugar|yoga|karma)/.test(w))return'b';return'g'}function build(a,s){let seen=new Set();canopy=[];a.forEach((w,i)=>{w=(w||'').trim().toLowerCase();if(!/^[a-z][a-z'-]{1,23}$/.test(w)||seen.has(w))return;seen.add(w);let k=gh(w),c=com[k],u=hash(w),A=u%100000/100000*Math.PI*2,r=Math.sqrt((u>>>8)%10000/10000);canopy.push({w,x:c.x+Math.cos(A)*c.r*r*1.55,y:c.y+Math.sin(A)*c.r*r*1.25})});ci=new Map(canopy.map(n=>[n.w,n]));src=s}build(fb,'built-in');fetch('https://raw.githubusercontent.com/parker57/making-sense-of-etymwn/refs/heads/master/google-10k.txt').then(r=>r.ok?r.text():Promise.reject()).then(t=>{let a=t.split(/\r?\n/);if(a.length>5000){build(a,'10k canopy');toast('Loaded 10,000-word canopy')}}).catch(()=>{});let cam={x:400,y:600,z:.3},tar={...cam},sel=by.window,sc=null,mode='lineage';const sx=v=>(v-cam.x)*cam.z+W/2,sy=v=>(v-cam.y)*cam.z+H/2,wx=v=>(v-W/2)/cam.z+cam.x,wy=v=>(v-H/2)/cam.z+cam.y,vis=(a,b,p=70)=>sx(a)>-p&&sx(a)<W+p&&sy(b)>-p&&sy(b)<H+p;function anc(n){let o=new Set();function f(id){for(const e of es)if(e.b===id&&!o.has(e.a)){o.add(e.a);f(e.a)}}f(n.id);return o}function des(n){let o=new Set();function f(id){for(const e of es)if(e.a===id&&!o.has(e.b)){o.add(e.b);f(e.b)}}f(n.id);return o}function hood(){return sel?new Set([sel.id,...anc(sel),...des(sel)]):new Set}function active(e,h){if(!sel||mode==='atlas')return 0;if(mode==='ancestors')return anc(sel).has(e.a)&&h.has(e.b);if(mode==='descendants')return des(sel).has(e.b)&&h.has(e.a);return h.has(e.a)&&h.has(e.b)}function draw(){requestAnimationFrame(draw);cam.x+=(tar.x-cam.x)*.09;cam.y+=(tar.y-cam.y)*.09;cam.z+=(tar.z-cam.z)*.1;X.fillStyle='#040806';X.fillRect(0,0,W,H);for(const k in com){let c=com[k],x=sx(c.x),y=sy(c.y),r=c.r*2*cam.z,g=X.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,c.c+'28');g.addColorStop(1,c.c+'00');X.fillStyle=g;X.beginPath();X.arc(x,y,r,0,7);X.fill();if(cam.z<.55){X.fillStyle='#b7cabd88';X.font='600 14px system-ui';X.textAlign='center';X.fillText(c.name,x,y)}}let step=cam.z<.28?6:cam.z<.48?3:1,labs=0;for(let i=0;i<canopy.length;i+=step){let n=canopy[i];if(!vis(n.x,n.y,15))continue;X.fillStyle='#d7f7d644';X.fillRect(sx(n.x),sy(n.y),cam.z>.8?2:1,cam.z>.8?2:1);if(cam.z>1.45&&labs++<150){X.fillStyle='#dff5e077';X.font='10px system-ui';X.textAlign='center';X.fillText(n.w,sx(n.x),sy(n.y)-4)}}let h=hood();for(const e of es){let a=by[e.a],b=by[e.b];if(!vis(a.x,a.y,100)&&!vis(b.x,b.y,100))continue;let x1=sx(a.x),y1=sy(a.y),x2=sx(b.x),y2=sy(b.y),dx=x2-x1,dy=y2-y1,mx=(x1+x2)/2,my=(y1+y2)/2,on=active(e,h);X.beginPath();X.moveTo(x1,y1);X.quadraticCurveTo(mx-dy*.12,my+dx*.12,x2,y2);X.strokeStyle=EC[e.t];X.globalAlpha=on?.95:.18;X.lineWidth=on?2.2:1;if(e.t==='b')X.setLineDash([5,5]);else if(e.t==='l')X.setLineDash([2,4]);else X.setLineDash([]);X.stroke();X.setLineDash([]);X.globalAlpha=1}for(const n of ns){if(!vis(n.x,n.y,80))continue;let on=h.has(n.id),s=n===sel,c=LC[n.l]||'#a7b3aa';X.globalAlpha=s?1:on?.95:mode==='atlas'?.75:.34;X.fillStyle=c;X.beginPath();X.arc(sx(n.x),sy(n.y),(s?7:on?5:3.5)*Math.max(.75,cam.z),0,7);X.fill();if(cam.z>.5||on){X.fillStyle='#eff8f0';X.font=(s?'700 ':'600 ')+'12px Georgia';X.textAlign='center';X.fillText(n.w,sx(n.x),sy(n.y)-9)}X.globalAlpha=1}if(sc){X.strokeStyle='#fff';X.lineWidth=2;X.beginPath();X.arc(sx(sc.x),sy(sc.y),9,0,7);X.stroke()}}draw();function panel(){if(sc){P.innerHTML='<div class="eye">ambient canopy</div><h2>'+sc.w+'</h2><p>Real English word; its current location is approximate until its verified ancestry is added to the graph.</p><div class="meta">Canopy source: '+src+'</div>';return}let a=anc(sel),d=des(sel);P.innerHTML='<div class="eye">graph lineage</div><h2>'+sel.w+'</h2><p>'+sel.l+' · '+sel.era+'<br>'+sel.m+'</p><div class="meta">ANCESTORS '+a.size+' · DESCENDANTS '+d.size+'<br>The bright routes are the selected word’s actual ancestry/descendant neighborhood.</div>'}function status(){S.textContent=(cam.z<.34?'atlas':cam.z<.75?'forest':cam.z<1.3?'tree':'word')+' · '+Math.round(cam.z*100)+'% · '+ns.length+' graph nodes · '+es.length+' etymology edges · '+canopy.length.toLocaleString()+' canopy words'}function choose(n){sel=n;sc=null;tar.x=n.x;tar.y=n.y-55;tar.z=Math.max(tar.z,1.05);panel()}function chooseC(n){sel=null;sc=n;tar.x=n.x;tar.y=n.y;tar.z=Math.max(tar.z,1.35);panel()}function search(){let q=document.querySelector('#q').value.trim().toLowerCase(),n=ns.find(x=>x.w.toLowerCase()===q);if(n)return choose(n);n=ci.get(q)||canopy.find(x=>x.w.startsWith(q));n?chooseC(n):toast('Word not loaded yet')}function toast(t){let e=document.querySelector('#toast');e.textContent=t;e.style.opacity=1;clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.opacity=0,1500)}document.querySelector('#go').onclick=search;document.querySelector('#q').onkeydown=e=>e.key==='Enter'&&search();document.querySelector('#home').onclick=()=>choose(by.window);document.querySelector('#atlas').onclick=()=>{mode='atlas';tar={x:400,y:600,z:.27}};let ms=['lineage','ancestors','descendants','atlas'];document.querySelector('#mode').onclick=e=>{mode=ms[(ms.indexOf(mode)+1)%ms.length];e.target.textContent=mode[0].toUpperCase()+mode.slice(1)};panel();status();setInterval(status,600);let pts=new Map(),pinch=0,moved=0;C.onpointerdown=e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);C.setPointerCapture(e.pointerId);moved=0};C.onpointermove=e=>{if(!pts.has(e.pointerId))return;let o=pts.get(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);if(pts.size===1){let dx=e.clientX-o[0],dy=e.clientY-o[1];if(Math.hypot(dx,dy)>2)moved=1;cam.x=tar.x-=dx/cam.z;cam.y=tar.y-=dy/cam.z}else{let p=[...pts.values()],d=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]),mx=(p[0][0]+p[1][0])/2,my=(p[0][1]+p[1][1])/2;if(pinch){let bx=wx(mx),byy=wy(my),z=Math.max(.12,Math.min(3.5,cam.z*d/pinch));cam.z=tar.z=z;cam.x=tar.x=bx-(mx-W/2)/z;cam.y=tar.y=byy-(my-H/2)/z}pinch=d;moved=1}};function up(e){pts.delete(e.pointerId);if(pts.size<2)pinch=0}C.onpointerup=up;C.onpointercancel=up;C.addEventListener('wheel',e=>{e.preventDefault();let bx=wx(e.clientX),byy=wy(e.clientY),z=Math.max(.12,Math.min(3.5,cam.z*Math.exp(-e.deltaY*.0012)));cam.z=tar.z=z;cam.x=tar.x=bx-(e.clientX-W/2)/z;cam.y=tar.y=byy-(e.clientY-H/2)/z},{passive:false});C.onclick=e=>{if(moved)return;let b=null,d=25;for(const n of ns){let q=Math.hypot(sx(n.x)-e.clientX,sy(n.y)-e.clientY);if(q<d)d=q,b=n}if(b)choose(b)};</script></body></html>
