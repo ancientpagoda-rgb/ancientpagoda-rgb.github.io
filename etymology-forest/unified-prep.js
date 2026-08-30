@@ -1,0 +1,1 @@
+(function(){const b=document.querySelector('#worldMode');if(b&&document.body.classList.contains('world-mode'))b.click();})();
