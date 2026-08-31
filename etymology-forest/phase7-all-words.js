@@ -7,22 +7,18 @@ if(btn){btn.textContent='All Words';btn.title='Open the complete Wiktionary-deri
 if(q)q.placeholder='Search any word, language, or script…';
 let falling=false;
 const originalToast=typeof window.toast==='function'?window.toast.bind(window):null;
-async function fullCorpusFallback(term){
+function fullCorpusFallback(term){
   term=String(term||'').trim();
   if(!term||falling)return;
   falling=true;
-  try{
-    if(status)status.textContent='searching the full etymology corpus · '+term;
-    corpus.activate(true);
-    const ok=await corpus.load();
-    if(!ok){if(originalToast)originalToast('Full corpus could not be loaded');return;}
-    if(q)q.value=term;
-    // The bulk layer owns the normal search controls while active. Triggering the
-    // existing button keeps one canonical search/result implementation.
-    setTimeout(()=>{try{go?.click()}catch(_){}},0);
-  }finally{
-    setTimeout(()=>{falling=false},120);
-  }
+  if(q)q.value=term;
+  if(status)status.textContent='searching the full etymology corpus · '+term;
+  const alreadyReady=corpus.ready;
+  // activate(true) is the canonical loader. When loading is needed, the bulk
+  // layer itself searches the current query as soon as decoding finishes.
+  corpus.activate(true);
+  if(alreadyReady)setTimeout(()=>{try{go?.click()}catch(_){}},0);
+  setTimeout(()=>{falling=false},500);
 }
 window.toast=function(msg){
   const s=String(msg||'');
@@ -32,18 +28,9 @@ window.toast=function(msg){
   }
   if(originalToast)originalToast(msg);
 };
-// Make the full corpus available in the background on capable desktop browsers.
-// Mobile waits for the first corpus search to avoid an unnecessary ~20 MB download
-// and large decode on startup.
+// Keep startup light: the ~20 MB compressed corpus is loaded on first use rather
+// than automatically. Every corpus word is still addressable through normal search.
 const mobile=!!window.__etymMobileProfile?.enabled;
-if(!mobile){
-  const warm=()=>corpus.load().catch(()=>{});
-  if('requestIdleCallback'in window)requestIdleCallback(warm,{timeout:5000});
-  else setTimeout(warm,2400);
-}
-// Small visual contract: corpus records are part of the forest, but only a local
-// ancestry neighborhood is materialized at once. This keeps millions of lexemes
-// addressable without making performance incorrect.
 const note=document.createElement('div');
 note.id='allWordsBadge';
 note.textContent='ALL WORDS · full corpus fallback';
