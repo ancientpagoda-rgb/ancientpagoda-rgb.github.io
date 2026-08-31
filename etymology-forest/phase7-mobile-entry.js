@@ -8,5 +8,5 @@ body.mobile-panel-open #bulkMobileBtn{opacity:.55}
 @media(orientation:landscape) and (max-height:500px){#bulkMobileBtn{right:10px;bottom:78px;height:42px;min-width:92px}}
 `;document.head.appendChild(css);
 const b=document.createElement('button');b.id='bulkMobileBtn';b.textContent='Words · 2.4M';b.setAttribute('aria-label','Open standalone full etymology corpus');document.body.appendChild(b);
-b.onclick=()=>{try{window.top.location.href='./corpus.html?v=standalone1'}catch(_){location.href='./corpus.html?v=standalone1'}};
+b.onclick=()=>{const u='./phase5.html?corpus=1&v=direct2';try{window.top.location.href=u}catch(_){location.href=u}};
 })();
