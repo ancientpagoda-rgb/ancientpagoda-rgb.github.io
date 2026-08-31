@@ -9,5 +9,5 @@ body.bulk-world #bulkMobileBtn{background:#315f79f6}
 @media(orientation:landscape) and (max-height:500px){#bulkMobileBtn{right:10px;bottom:78px;height:42px;min-width:92px}}
 `;document.head.appendChild(css);
 const b=document.createElement('button');b.id='bulkMobileBtn';b.textContent='All Words';b.setAttribute('aria-label','Open the complete etymology corpus inside the forest');document.body.appendChild(b);
-b.onclick=async()=>{const c=window.__bulkCorpus;if(!c)return;b.textContent='Loading…';c.activate(true);const ok=await c.load();b.textContent=ok?'All Words ✓':'All Words'};
+b.onclick=()=>{const c=window.__bulkCorpus;if(!c)return;c.activate(true);if(c.ready){b.textContent='All Words ✓';return}b.textContent='Loading…';const started=Date.now(),timer=setInterval(()=>{if(c.ready){clearInterval(timer);b.textContent='All Words ✓'}else if(Date.now()-started>90000){clearInterval(timer);b.textContent='All Words'}},350)};
 })();
