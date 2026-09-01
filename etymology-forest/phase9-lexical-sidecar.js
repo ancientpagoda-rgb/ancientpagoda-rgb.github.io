@@ -6,7 +6,7 @@ const BASE='https://raw.githubusercontent.com/ancientpagoda-rgb/ancientpagoda-rg
 const REAL_FETCH=window.fetch.bind(window),SHARDS=256,CACHE=new Map();
 let manifestPromise=null,manifest=null,available=null;
 const nfc=s=>String(s||'').normalize('NFC');
-function hash(s){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);h^=h>>>16;h=Math.imul(h,2246822519);h^=h>>>13;return h>>>0}
+function hash(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.codePointAt(0),16777619);h^=h>>>16;h=Math.imul(h,2246822519);h^=h>>>13;return h>>>0}
 function key(lang,word){return nfc(lang)+'\u0000'+nfc(word)}
 function shardFor(k){return (hash(k)&(SHARDS-1)).toString(16).padStart(2,'0')}
 async function getManifest(){if(available===false)return null;if(manifest)return manifest;if(manifestPromise)return manifestPromise;manifestPromise=(async()=>{try{const r=await REAL_FETCH(BASE+'manifest.json',{cache:'no-store'});if(!r.ok)throw new Error(String(r.status));manifest=await r.json();available=true;return manifest}catch(_){available=false;return null}finally{manifestPromise=null}})();return manifestPromise}
