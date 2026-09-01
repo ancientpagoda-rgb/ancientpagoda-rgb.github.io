@@ -2,7 +2,9 @@
 // Deep clean-view zoom. The ancestry renderer and the all-word field both use
 // Math.min(3.4, nextZoom) as their interactive ceiling. In clean mode only,
 // transparently raise that shared ceiling so their cameras remain synchronized.
-const MAX_Z=24;
+// 160x is intentionally large: dense corpus groves need enough screen space for
+// every local word to resolve into an individual readable/selectable node.
+const MAX_Z=160;
 const realMin=Math.min;
 if(!Math.__etymDeepZoomPatched){
   const patched=function(){
@@ -14,6 +16,7 @@ if(!Math.__etymDeepZoomPatched){
   Math.min=patched;
   Math.__etymDeepZoomPatched=true;
 }
+window.__etymMaxZoom=MAX_Z;
 
 // Clean view is the language/word ancestry universe, not the historical map UI.
 // This also guarantees the word-density camera is following the same pointer
