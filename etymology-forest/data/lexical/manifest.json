@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-01T00:25:49.757215+00:00",
+  "source": "https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+  "source_note": "English Wiktionary extracted with Wiktextract/Kaikki; glosses are English.",
+  "core_source": "https://raw.githubusercontent.com/jewoo-suh/etymology-tree/master/graph-core-a360efd3e4.json.gz",
+  "shards": 256,
+  "corpus_unique_lexemes": 2397315,
+  "records": 1679581,
+  "with_gloss": 1679276,
+  "with_ipa": 1004082,
+  "with_both": 1003777,
+  "coverage": {
+    "any": 0.700609,
+    "gloss": 0.700482,
+    "ipa": 0.418836,
+    "both": 0.418709
+  },
+  "compressed_bytes": 52141996
+}

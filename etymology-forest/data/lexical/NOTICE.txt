@@ -1,0 +1,2 @@
+Gloss/IPA data: English Wiktionary via Wiktextract and Kaikki.org. Wiktionary content is CC BY-SA/GFDL; see https://en.wiktionary.org/wiki/Wiktionary:Copyrights
+Etymology corpus identity: jewoo-suh/etymology-tree.
