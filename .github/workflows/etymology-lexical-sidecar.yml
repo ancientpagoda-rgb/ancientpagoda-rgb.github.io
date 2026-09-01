@@ -1,0 +1,41 @@
+name: Build etymology lexical sidecar
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - etymology-forest/tools/build-lexical-sidecar.py
+      - .github/workflows/etymology-lexical-sidecar.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install fast JSON decoder
+        run: python -m pip install --disable-pip-version-check orjson
+      - name: Build all available English gloss and IPA shards
+        run: python etymology-forest/tools/build-lexical-sidecar.py --out /tmp/etymology-lexical
+      - name: Publish replaceable lexical-data branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout --orphan lexical-data
+          git rm -rf . || true
+          mkdir -p etymology-forest/data/lexical
+          cp -a /tmp/etymology-lexical/. etymology-forest/data/lexical/
+          git add etymology-forest/data/lexical
+          git commit -m 'Refresh Wiktionary gloss and IPA sidecar'
+          git push origin lexical-data --force
