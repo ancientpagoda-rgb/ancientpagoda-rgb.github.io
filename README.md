@@ -1,12 +1,16 @@
 # Ancient Pagoda Labs
 
-Root GitHub Pages hub for Ancient Pagoda Labs: interactive intelligence atlases for complex systems.
+Root GitHub Pages hub for Ancient Pagoda Labs: evidence-aware atlases and simulations across scale.
 
-Current public demo suite:
+The hub organizes the public work into four navigable families:
 
-- **World** - refreshed globe briefing surface with NASA Earth texture snapshots, NOAA GFS weather overlays, country-linked headlines, search, and navigation.
-- **Brain Wiring Atlas** - Pandora/TractSeg-derived 3D structural tract atlas with bilateral bundles and clearly labeled schematic functional/neurochemistry overlays.
-- **Cosmic Clock** - time-aware Earth, Solar System, and universe atlas with Astronomy Engine positions, sidereal Earth alignment, and ΛCDM-informed epoch controls.
+- **Observe** — dashboards and atlases built around sourced data.
+- **Simulate** — deterministic or living models of worlds, evolution, and history.
+- **Explore** — interactive experiments that make scale and systems tangible.
+- **Tools** — supporting utilities and technical infrastructure.
+
+Featured systems include **World**, **Brain Wiring Atlas**, **Cosmic Clock**,
+**Cosmic Motion Vectors**, **Earth 777**, and **Epic Evolution Simulation**.
 
 Published via GitHub Pages:
 
@@ -14,5 +18,8 @@ Published via GitHub Pages:
 - https://ancientpagoda-rgb.github.io/world/
 - https://ancientpagoda-rgb.github.io/brain-wiring-atlas/
 - https://ancientpagoda-rgb.github.io/cosmic-clock/
+- https://ancientpagoda-rgb.github.io/cosmic-motion-vectors/
+- https://ancientpagoda-rgb.github.io/earth-777/
+- https://ancientpagoda-rgb.github.io/epic-evolution-sim/
 
 Older experiments remain in the archive section of the hub.
